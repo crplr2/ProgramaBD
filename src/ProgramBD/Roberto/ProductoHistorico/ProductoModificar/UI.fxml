@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="968.0" prefWidth="723.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProgramBD.Roberto.ProductoHistorico.ProductoModificar.Controller">
+    <tabs>
+        <Tab text="  Modificar Producto ">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="933.0" prefWidth="723.0">
+                    <children>
+
+                  <GridPane layoutX="30.0" layoutY="25.0" prefHeight="813.0" prefWidth="646.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="155.0" />
+                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="891.0" minWidth="10.0" prefWidth="491.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ProductID     " />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name     " GridPane.rowIndex="1" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Weight     " GridPane.rowIndex="13" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ProductNumber     " GridPane.rowIndex="2" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MakeFlag     " GridPane.rowIndex="3" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FinishedGoodsFlag     " GridPane.rowIndex="4" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Color     " GridPane.rowIndex="5" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SafetyStockLevel     " GridPane.rowIndex="6" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ReorderPoint     " GridPane.rowIndex="7" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="StandardCost     " GridPane.rowIndex="8" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ListPrice     " GridPane.rowIndex="9" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Size     " GridPane.rowIndex="10" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SizeUnitMeasureCode     " GridPane.rowIndex="11" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DaysToManufacture     " GridPane.rowIndex="14" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ProductLine     " GridPane.rowIndex="15" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="WeightUnitMeasureCode     " GridPane.rowIndex="12" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Class     " GridPane.rowIndex="16" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Style     " GridPane.rowIndex="17" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ProductSubcategoryID     " GridPane.rowIndex="18" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ProductModelID     " GridPane.rowIndex="19" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SellStartDate     " GridPane.rowIndex="20" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SellEndDate     " GridPane.rowIndex="21" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DiscontinuedDate     " GridPane.rowIndex="22" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="rowguid     " GridPane.rowIndex="23" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ModifiedDate     " GridPane.rowIndex="24" />
+                         <TextField fx:id="ProductID" GridPane.columnIndex="1" />
+                        <TextField fx:id="Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="ProductNumber" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="MakeFlag" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="FinishedGoodsFlag" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="Color" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="SafetyStockLevel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="ReorderPoint" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="StandardCost" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="ListPrice" prefHeight="25.0" prefWidth="849.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <TextField fx:id="Size" prefHeight="25.0" prefWidth="854.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <TextField fx:id="SizeUnitMeasureCode" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <TextField fx:id="WeightUnitMeasureCode" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <TextField fx:id="Weight" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                        <TextField fx:id="DaysToManufacture" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <TextField fx:id="ProductLine" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                        <TextField fx:id="Class" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                        <TextField fx:id="Style" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+                        <TextField fx:id="ProductSubcategoryID" GridPane.columnIndex="1" GridPane.rowIndex="18" />
+                        <TextField fx:id="ProductModelID" GridPane.columnIndex="1" GridPane.rowIndex="19" />
+                        <TextField fx:id="SellStartDate" GridPane.columnIndex="1" GridPane.rowIndex="20" />
+                        <TextField fx:id="SellEndDate" GridPane.columnIndex="1" GridPane.rowIndex="21" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="22" />
+                        <TextField fx:id="DiscontinuedDate" GridPane.columnIndex="1" GridPane.rowIndex="22" />
+                        <TextField fx:id="rowguid" GridPane.columnIndex="1" GridPane.rowIndex="23" />
+                        <TextField fx:id="ModifiedDate" GridPane.columnIndex="1" GridPane.rowIndex="24" />
+                     </children>
+                  </GridPane>
+                        <Button onAction="#actionBotonModificar" layoutX="93.0" layoutY="870.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="247.0" text="Modificar" />
+                  <Button onAction="#actionBotonRegresar" layoutX="403.0" layoutY="870.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="250.0" text="Regresar" />
+                    </children></AnchorPane>
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>

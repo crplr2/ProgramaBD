@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="899.0" prefWidth="1651.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProgramBD.Roberto.ProductoHistorico.Controller">
+  <tabs>
+    <Tab text="  Modificar Eliminar Producto ">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="660.0" prefWidth="2571.0">
+               <children>
+                  <Button layoutX="511.0" layoutY="806.0" mnemonicParsing="false" onAction="#actionBotonModificar" prefHeight="39.0" prefWidth="247.0" text="Modificar" />
+                  <Button layoutX="926.0" layoutY="806.0" mnemonicParsing="false" onAction="#actionBotonEliminar" prefHeight="37.0" prefWidth="252.0" text="Eliminar" />
+                  <ScrollPane prefHeight="780.0" prefWidth="1648.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="764.0" prefWidth="2594.0">
+                           <children>
+                              <TableView fx:id="tablaProductos" layoutX="1.0" layoutY="-1.0" prefHeight="768.0" prefWidth="2580.0">
+                                <columns>
+                                    <TableColumn fx:id="colProductID" prefWidth="75.0" text="ProductID" />
+                                    <TableColumn fx:id="colName" prefWidth="75.0" text="Name" />
+                                    <TableColumn fx:id="colProductNumber" prefWidth="107.0" text="ProductNumber" />
+                                    <TableColumn fx:id="colMakeFlag" prefWidth="72.0" text="MakeFlag" />
+                                    <TableColumn fx:id="colFinishedGoodsFlag" prefWidth="121.0" text="FinishedGoodsFlag" />
+                                    <TableColumn fx:id="colColor" minWidth="0.0" prefWidth="59.0" text="Color" />
+                                    <TableColumn fx:id="colSafetyStockLevel" prefWidth="106.0" text="SafetyStockLevel" />
+                                    <TableColumn fx:id="colReorderPoint" minWidth="0.0" prefWidth="115.0" text="ReorderPoint" />
+                                    <TableColumn fx:id="colStandardCost" minWidth="6.0" prefWidth="107.0" text="StandardCost" />
+                                    <TableColumn fx:id="colListPrice" prefWidth="83.0" text="ListPrice" />
+                                    <TableColumn fx:id="colSize" prefWidth="68.0" text="Size" />
+                                    <TableColumn fx:id="colSizeUnitMeasureCode" prefWidth="144.0" text="SizeUnitMeasureCode" />
+                                    <TableColumn fx:id="colWeightUnitMeasureCode" prefWidth="171.0" text="WeightUnitMeasureCode" />
+                                    <TableColumn fx:id="colWeight" prefWidth="90.0" text="Weight" />
+                                    <TableColumn fx:id="colDaysToManufacture" prefWidth="137.0" text="DaysToManufacture" />
+                                    <TableColumn fx:id="colProductLine" prefWidth="115.0" text="ProductLine" />
+                                    <TableColumn fx:id="colClass" prefWidth="76.0" text="Class" />
+                                    <TableColumn fx:id="colStyle" prefWidth="56.0" text="Style" />
+                                    <TableColumn fx:id="colProductSubcategoryID" prefWidth="143.0" text="ProductSubcategoryID" />
+                                    <TableColumn fx:id="colProductModelID" prefWidth="111.0" text="ProductModelID" />
+                                    <TableColumn fx:id="colSellStartDate" prefWidth="94.0" text="SellStartDate" />
+                                    <TableColumn fx:id="colSellEndDate" prefWidth="93.0" text="SellEndDate" />
+                                    <TableColumn fx:id="colDiscontinuedDate" prefWidth="121.0" text="DiscontinuedDate" />
+                                    <TableColumn fx:id="colrowguid" prefWidth="84.0" text="rowguid" />
+                                    <TableColumn fx:id="colModifiedDate" prefWidth="103.666748046875" text="ModifiedDate" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab text="  Historico Producto  ">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="tablaHistorico" layoutX="-1.0" prefHeight="869.0" prefWidth="1651.0">
+                    <columns>
+                      <TableColumn fx:id="colIDProducto" prefWidth="114.0" text="IDProducto" />
+                        <TableColumn fx:id="colCampoModificado" prefWidth="314.0" text="CampoModificado" />
+                      <TableColumn fx:id="colValorAnterior" prefWidth="478.0" text="ValorAnterior" />
+                        <TableColumn fx:id="colValorNuevo" minWidth="0.0" prefWidth="534.0" text="ValorNuevo" />
+                        <TableColumn fx:id="colFechaModificacion" prefWidth="209.0" text="FechaModificacion" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>
