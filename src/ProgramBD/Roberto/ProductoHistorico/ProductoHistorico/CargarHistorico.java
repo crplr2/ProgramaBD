@@ -13,7 +13,7 @@ public class CargarHistorico {
     private static PreparedStatement ps;
 
     static{
-        String sqlQuery = "SELECT * FROM CambiosProductoHistorico ";
+        String sqlQuery = "SELECT * FROM CambiosProductoHistorico ORDER BY IDProducto";
         Connection conn = DatabaseConnection.getInstance().getConnection();
         try{
             ps= conn.prepareStatement(sqlQuery);

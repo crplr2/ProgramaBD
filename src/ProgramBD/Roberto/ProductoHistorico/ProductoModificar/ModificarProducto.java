@@ -28,7 +28,6 @@ public class ModificarProducto {
                             "DaysToManufacture = ?,"+
                             "ProductSubcategoryID = ?,"+
                             "ProductModelID = ?,"+
-                            "SellStartDate = ?,"+
                             "SellEndDate = ?,"+
                             "DiscontinuedDate = ?,"+
                             "ModifiedDate = ? "+
@@ -57,14 +56,13 @@ public class ModificarProducto {
             ps.setString(11,producto.getSizeUnitMeasureCode());
             ps.setString(12,producto.getWeightUnitMeasureCode());
             ps.setString(13,producto.getWeight());
-            ps.setString(14,producto.getDaysToManufacture());
-            ps.setString(15,producto.getProductSubcategoryID());
-            ps.setString(16,producto.getProductModelID());
-            ps.setString(17,producto.getSellStartDate());
-            ps.setString(18,producto.getSellEndDate());
-            ps.setString(19,producto.getDiscontinuedDate());
-            ps.setString(20,producto.getModifiedDate());
-            ps.setInt(21,Integer.valueOf(producto.getProductID()));
+            ps.setString(14,(producto.getDaysToManufacture()));
+            ps.setString(15,(producto.getProductSubcategoryID()));
+            ps.setString(16,(producto.getProductModelID()));
+            ps.setString(17,producto.getSellEndDate());
+            ps.setString(18,producto.getDiscontinuedDate());
+            ps.setString(19,producto.getModifiedDate());
+            ps.setInt(20,Integer.valueOf(producto.getProductID()));
             ps.executeUpdate();
             return  true;
         }catch (SQLException e ){
