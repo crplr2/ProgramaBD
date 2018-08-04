@@ -73,5 +73,13 @@
             </AnchorPane>
         </content>
       </Tab>
+      <Tab onSelectionChanged="#regresarMenu" text="  Regresar  ">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="button1" layoutX="2.0" layoutY="701.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="7.0" text="Button" />
+               </children></AnchorPane>
+        </content>
+      </Tab>
   </tabs>
 </TabPane>

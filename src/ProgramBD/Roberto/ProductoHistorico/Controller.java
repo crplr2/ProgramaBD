@@ -10,12 +10,14 @@ import ProgramBD.Roberto.ProductoHistorico.ProductoHistorico.ProductoHistorico;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -61,7 +63,7 @@ public class Controller {
     @FXML private TableColumn colValorNuevo;
     @FXML private TableColumn colFechaModificacion;
 
-
+    @FXML private Button button1;
 
 
     public void initialize() {
@@ -139,6 +141,25 @@ public class Controller {
         }
         cargarTablaProductos();
         cargarTablaHistorico();
+    }
+
+    @FXML
+    public void regresarMenu( ){
+        button1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                try{
+                    Parent fxml = FXMLLoader.load(getClass().getResource("/ProgramBD/Menu/UI.fxml"));
+                    Scene scene = new Scene(fxml);
+                    Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                }catch (IOException w){
+                    System.out.println("UI menu not found "+w);
+                }
+
+            }
+        });
+        button1.fire();
     }
 
 
