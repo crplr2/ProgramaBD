@@ -8,7 +8,7 @@ public class DatabaseConnection {
 
         private static  DatabaseConnection instance = new DatabaseConnection();
         private static Connection connection;
-        private static String serverName = "LAPTOP-SPS464ND;";
+        private static String serverName = "DESKTOP-7P10APU\\SQLEXPRESS;";
         private static String dbName = "database=AdventureWorks2014;";
         private static String user = "user=admin;";
         private static String password = "password=admin123;";
