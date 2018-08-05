@@ -33,4 +33,13 @@ public class Controller {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    public void buttonListadoProductos(ActionEvent event)throws IOException{
+        Parent fxml = FXMLLoader.load(getClass().getResource("/ProgramBD/Hector/UI.fxml"));
+        Scene scene = new Scene(fxml);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 }
