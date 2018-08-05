@@ -2,21 +2,13 @@ ALTER   TRIGGER [Production].[anyUpdate] on [Production].[Product]
 AFTER UPDATE AS
 BEGIN
 ---------------------------------------------------------------------------------------------------------
---ESTO PARA VALIDAR QUE EN SOLO UN ELEMENTO REALIZE EL UPDATE EN CASO CONTRARIO REGRESA
-IF((SELECT COUNT(ProductID) FROM deleted)>1)
-BEGIN
-	RETURN
-END
----------------------------------------------------------------------------------------------------------
 --ESTO ES PARA SACAR LOS CAMPOS DE LOS CUALES SE REALIZO EL UPDATE
 DECLARE @Columns_Updated NVARCHAR(MAX)
 DECLARE @ValorAnterior NVARCHAR(MAX)
 DECLARE @ValorNuevo NVARCHAR(MAX)
 
-
-IF ( ((SELECT Name FROM deleted ) IS NULL AND (SELECT Name FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT Name FROM inserted ) IS NULL AND (SELECT Name FROM deleted ) IS NOT NULL)  OR
-	 ((SELECT Name  FROM inserted ) <> (SELECT Name FROM deleted )))
+IF ( ((SELECT Name FROM deleted) IS NULL AND (SELECT Name FROM inserted ) IS NOT NULL) OR 
+	 ((SELECT Name FROM inserted) IS NULL AND (SELECT Name FROM deleted ) IS NOT NULL) )
 BEGIN
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'Name'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.Name),'NULL'),CHAR(10))
@@ -24,27 +16,46 @@ BEGIN
 	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.Name),'NULL'),CHAR(10))
 	FROM INSERTED a
 END
-
+ELSE IF( (SELECT Name FROM inserted) <> (SELECT Name FROM deleted) )
+BEGIN 
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'Name'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.Name),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.Name),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
 	 
 
-IF ( ((SELECT ProductNumber FROM deleted) IS NULL AND (SELECT ProductNumber FROM inserted) IS NOT NULL) OR 
-	 ((SELECT ProductNumber FROM inserted) IS NULL AND (SELECT ProductNumber FROM deleted) IS NOT NULL) OR
-	 ((SELECT ProductNumber FROM inserted) <> (SELECT ProductNumber FROM deleted)) )
+IF ( ((SELECT ProductNumber FROM deleted) IS NULL AND (SELECT ProductNumber FROM inserted ) IS NOT NULL) OR 
+	 ((SELECT ProductNumber FROM inserted) IS NULL AND (SELECT ProductNumber FROM deleted ) IS NOT NULL) )
 BEGIN
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'ProductNumber'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.ProductNumber),'NULL'),CHAR(10))
 	FROM DELETED a
 	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.ProductNumber),'NULL'),CHAR(10))
 	FROM INSERTED a
-
+END
+ELSE IF( (SELECT ProductNumber FROM inserted) <> (SELECT ProductNumber FROM deleted) )
+BEGIN 
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'ProductNumber'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.ProductNumber),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.ProductNumber),'NULL'),CHAR(10))
+	FROM INSERTED a
 END
 
 
-
-IF ( ((SELECT MakeFlag FROM deleted) IS NULL AND (SELECT MakeFlag FROM inserted) IS NOT NULL) OR 
-	 ((SELECT MakeFlag FROM inserted) IS NULL AND (SELECT MakeFlag FROM deleted) IS NOT NULL) OR
-	 ((SELECT MakeFlag FROM inserted) <> (SELECT MakeFlag FROM deleted)) )
+IF ( ((SELECT MakeFlag FROM deleted) IS NULL AND (SELECT MakeFlag FROM inserted ) IS NOT NULL) OR 
+	 ((SELECT MakeFlag FROM inserted) IS NULL AND (SELECT MakeFlag FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'MakeFlag'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.MakeFlag),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.MakeFlag),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT MakeFlag FROM inserted) <> (SELECT MakeFlag FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'MakeFlag'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.MakeFlag),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -53,11 +64,17 @@ BEGIN
 END
 
 
-
 IF ( ((SELECT FinishedGoodsFlag FROM deleted) IS NULL AND (SELECT FinishedGoodsFlag FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT FinishedGoodsFlag FROM inserted) IS NULL AND (SELECT FinishedGoodsFlag FROM deleted ) IS NOT NULL) OR
-	 ((SELECT FinishedGoodsFlag FROM inserted) <> (SELECT FinishedGoodsFlag FROM deleted)) )
+	 ((SELECT FinishedGoodsFlag FROM inserted) IS NULL AND (SELECT FinishedGoodsFlag FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'FinishedGoodsFlag'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.FinishedGoodsFlag),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.FinishedGoodsFlag),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT FinishedGoodsFlag FROM inserted) <> (SELECT FinishedGoodsFlag FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'FinishedGoodsFlag'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.FinishedGoodsFlag),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -66,11 +83,17 @@ BEGIN
 END
 
 
-
 IF ( ((SELECT Color FROM deleted) IS NULL AND (SELECT Color FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT Color FROM inserted) IS NULL AND (SELECT Color FROM deleted ) IS NOT NULL) OR
-	 ((SELECT Color FROM inserted) <> (SELECT Color FROM deleted)) )
+	 ((SELECT Color FROM inserted) IS NULL AND (SELECT Color FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'Color'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.Color),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.Color),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT Color FROM inserted) <> (SELECT Color FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'Color'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.Color),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -79,11 +102,17 @@ BEGIN
 END
 
 
-
 IF ( ((SELECT SafetyStockLevel FROM deleted) IS NULL AND (SELECT SafetyStockLevel FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT SafetyStockLevel FROM inserted) IS NULL AND (SELECT SafetyStockLevel FROM deleted ) IS NOT NULL) OR
-	 ((SELECT SafetyStockLevel FROM inserted) <> (SELECT SafetyStockLevel FROM deleted)) )
+	 ((SELECT SafetyStockLevel FROM inserted) IS NULL AND (SELECT SafetyStockLevel FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'SafetyStockLevel'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.SafetyStockLevel),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.SafetyStockLevel),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT SafetyStockLevel FROM inserted) <> (SELECT SafetyStockLevel FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'SafetyStockLevel'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.SafetyStockLevel),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -93,9 +122,16 @@ END
 
 
 IF ( ((SELECT ReorderPoint FROM deleted) IS NULL AND (SELECT ReorderPoint FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT ReorderPoint FROM inserted) IS NULL AND (SELECT ReorderPoint FROM deleted ) IS NOT NULL) OR
-	 ((SELECT ReorderPoint FROM inserted) <> (SELECT ReorderPoint FROM deleted)) )
+	 ((SELECT ReorderPoint FROM inserted) IS NULL AND (SELECT ReorderPoint FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'ReorderPoint'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.ReorderPoint),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.ReorderPoint),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT ReorderPoint FROM inserted) <> (SELECT ReorderPoint FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'ReorderPoint'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.ReorderPoint),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -105,9 +141,16 @@ END
 
 
 IF ( ((SELECT StandardCost FROM deleted) IS NULL AND (SELECT StandardCost FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT StandardCost FROM inserted) IS NULL AND (SELECT StandardCost FROM deleted ) IS NOT NULL) OR
-	 ((SELECT StandardCost FROM inserted) <> (SELECT StandardCost FROM deleted)) )
+	 ((SELECT StandardCost FROM inserted) IS NULL AND (SELECT StandardCost FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'StandardCost'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.StandardCost),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.StandardCost),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT StandardCost FROM inserted) <> (SELECT StandardCost FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'StandardCost'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.StandardCost),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -117,9 +160,16 @@ END
 
 
 IF ( ((SELECT ListPrice FROM deleted) IS NULL AND (SELECT ListPrice FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT ListPrice FROM inserted) IS NULL AND (SELECT ListPrice FROM deleted ) IS NOT NULL) OR
-	 ((SELECT ListPrice FROM inserted) <> (SELECT ListPrice FROM deleted)) )
+	 ((SELECT ListPrice FROM inserted) IS NULL AND (SELECT ListPrice FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'ListPrice'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.ListPrice),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.ListPrice),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT ListPrice FROM inserted) <> (SELECT ListPrice FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'ListPrice'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.ListPrice),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -128,11 +178,17 @@ BEGIN
 END
 
 
-
 IF ( ((SELECT Size FROM deleted) IS NULL AND (SELECT Size FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT Size FROM inserted) IS NULL AND (SELECT Size FROM deleted ) IS NOT NULL) OR
-	 ((SELECT Size FROM inserted) <> (SELECT Size FROM deleted)) )
+	 ((SELECT Size FROM inserted) IS NULL AND (SELECT Size FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'Size'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.Size),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.Size),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT Size FROM inserted) <> (SELECT Size FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'Size'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.Size),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -142,9 +198,16 @@ END
 
 
 IF ( ((SELECT SizeUnitMeasureCode FROM deleted) IS NULL AND (SELECT SizeUnitMeasureCode FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT SizeUnitMeasureCode FROM inserted) IS NULL AND (SELECT SizeUnitMeasureCode FROM deleted ) IS NOT NULL) OR
-	 ((SELECT SizeUnitMeasureCode FROM inserted) <> (SELECT SizeUnitMeasureCode FROM deleted)) )
+	 ((SELECT SizeUnitMeasureCode FROM inserted) IS NULL AND (SELECT SizeUnitMeasureCode FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'SizeUnitMeasureCode'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.SizeUnitMeasureCode),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.SizeUnitMeasureCode),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT SizeUnitMeasureCode FROM inserted) <> (SELECT SizeUnitMeasureCode FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'SizeUnitMeasureCode'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.SizeUnitMeasureCode),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -154,9 +217,16 @@ END
 
 
 IF ( ((SELECT WeightUnitMeasureCode FROM deleted) IS NULL AND (SELECT WeightUnitMeasureCode FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT WeightUnitMeasureCode FROM inserted) IS NULL AND (SELECT WeightUnitMeasureCode FROM deleted ) IS NOT NULL) OR
-	 ((SELECT WeightUnitMeasureCode FROM inserted) <> (SELECT WeightUnitMeasureCode FROM deleted)) )
+	 ((SELECT WeightUnitMeasureCode FROM inserted) IS NULL AND (SELECT WeightUnitMeasureCode FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'WeightUnitMeasureCode'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.WeightUnitMeasureCode),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.WeightUnitMeasureCode),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT WeightUnitMeasureCode FROM inserted) <> (SELECT WeightUnitMeasureCode FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'WeightUnitMeasureCode'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.WeightUnitMeasureCode),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -166,9 +236,16 @@ END
 
 
 IF ( ((SELECT Weight FROM deleted) IS NULL AND (SELECT Weight FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT Weight FROM inserted) IS NULL AND (SELECT Weight FROM deleted ) IS NOT NULL) OR
-	 ((SELECT Weight FROM inserted) <> (SELECT Weight FROM deleted)) )
+	 ((SELECT Weight FROM inserted) IS NULL AND (SELECT Weight FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'Weight'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.Weight),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.Weight),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT Weight FROM inserted) <> (SELECT Weight FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'Weight'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.Weight),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -178,9 +255,16 @@ END
 
 
 IF ( ((SELECT DaysToManufacture FROM deleted) IS NULL AND (SELECT DaysToManufacture FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT DaysToManufacture FROM inserted) IS NULL AND (SELECT DaysToManufacture FROM deleted ) IS NOT NULL) OR
-	 ((SELECT DaysToManufacture FROM inserted) <> (SELECT DaysToManufacture FROM deleted)) )
+	 ((SELECT DaysToManufacture FROM inserted) IS NULL AND (SELECT DaysToManufacture FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'DaysToManufacture'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.DaysToManufacture),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.DaysToManufacture),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT DaysToManufacture FROM inserted) <> (SELECT DaysToManufacture FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'DaysToManufacture'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.DaysToManufacture),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -190,9 +274,16 @@ END
 
 
 IF ( ((SELECT ProductSubcategoryID FROM deleted) IS NULL AND (SELECT ProductSubcategoryID FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT ProductSubcategoryID FROM inserted) IS NULL AND (SELECT ProductSubcategoryID FROM deleted ) IS NOT NULL) OR
-	 ((SELECT ProductSubcategoryID FROM inserted) <> (SELECT ProductSubcategoryID FROM deleted)) )
+	 ((SELECT ProductSubcategoryID FROM inserted) IS NULL AND (SELECT ProductSubcategoryID FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'ProductSubcategoryID'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.ProductSubcategoryID),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.ProductSubcategoryID),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT ProductSubcategoryID FROM inserted) <> (SELECT ProductSubcategoryID FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'ProductSubcategoryID'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.ProductSubcategoryID),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -202,9 +293,16 @@ END
 
 
 IF ( ((SELECT ProductModelID FROM deleted) IS NULL AND (SELECT ProductModelID FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT ProductModelID FROM inserted) IS NULL AND (SELECT ProductModelID FROM deleted ) IS NOT NULL) OR
-	 ((SELECT ProductModelID FROM inserted) <> (SELECT ProductModelID FROM deleted)) )
+	 ((SELECT ProductModelID FROM inserted) IS NULL AND (SELECT ProductModelID FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'ProductModelID'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.ProductModelID),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.ProductModelID),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT ProductModelID FROM inserted) <> (SELECT ProductModelID FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'ProductModelID'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.ProductModelID),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -213,11 +311,17 @@ BEGIN
 END
 
 
-
 IF ( ((SELECT SellEndDate FROM deleted) IS NULL AND (SELECT SellEndDate FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT SellEndDate FROM inserted) IS NULL AND (SELECT SellEndDate FROM deleted ) IS NOT NULL) OR
-	 ((SELECT SellEndDate FROM inserted) <> (SELECT SellEndDate FROM deleted)) )
+	 ((SELECT SellEndDate FROM inserted) IS NULL AND (SELECT SellEndDate FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'SellEndDate'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.SellEndDate),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.SellEndDate),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT SellEndDate FROM inserted) <> (SELECT SellEndDate FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'SellEndDate'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.SellEndDate),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -226,11 +330,17 @@ BEGIN
 END
 
 
-
 IF ( ((SELECT DiscontinuedDate FROM deleted) IS NULL AND (SELECT DiscontinuedDate FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT DiscontinuedDate FROM inserted) IS NULL AND (SELECT DiscontinuedDate FROM deleted ) IS NOT NULL) OR
-	 ((SELECT DiscontinuedDate FROM inserted) <> (SELECT DiscontinuedDate FROM deleted)) )
+	 ((SELECT DiscontinuedDate FROM inserted) IS NULL AND (SELECT DiscontinuedDate FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'DiscontinuedDate'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.DiscontinuedDate),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.DiscontinuedDate),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT DiscontinuedDate FROM inserted) <> (SELECT DiscontinuedDate FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'DiscontinuedDate'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.DiscontinuedDate),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -239,10 +349,18 @@ BEGIN
 END
 
 
+
 IF ( ((SELECT ModifiedDate FROM deleted) IS NULL AND (SELECT ModifiedDate FROM inserted ) IS NOT NULL) OR 
-	 ((SELECT ModifiedDate FROM inserted) IS NULL AND (SELECT ModifiedDate FROM deleted ) IS NOT NULL) OR
-	 ((SELECT ModifiedDate FROM inserted) <> (SELECT ModifiedDate FROM deleted)) )
+	 ((SELECT ModifiedDate FROM inserted) IS NULL AND (SELECT ModifiedDate FROM deleted ) IS NOT NULL) )
 BEGIN
+	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'ModifiedDate'+CHAR(10))
+	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.ModifiedDate),'NULL'),CHAR(10))
+	FROM DELETED a
+	SELECT @ValorNuevo = CONCAT(@ValorNuevo, ISNULL(CONVERT(nvarchar(MAX),a.ModifiedDate),'NULL'),CHAR(10))
+	FROM INSERTED a
+END
+ELSE IF( (SELECT ModifiedDate FROM inserted) <> (SELECT ModifiedDate FROM deleted) )
+BEGIN 
 	SELECT @Columns_Updated= CONCAT(@Columns_Updated,'ModifiedDate'+CHAR(10))
 	SELECT @ValorAnterior = CONCAT(@ValorAnterior, ISNULL(CONVERT(nvarchar(MAX),a.ModifiedDate),'NULL'),CHAR(10))
 	FROM DELETED a
@@ -274,12 +392,6 @@ END
 CREATE OR ALTER TRIGGER anyDelete on Production.Product 
 AFTER DELETE AS
 BEGIN
----------------------------------------------------------------------------------------------------------
---ESTO PARA VALIDAR QUE EN SOLO UN ELEMENTO REALIZE EL DELETE EN CASO CONTRARIO REGRESA
-IF((SELECT COUNT(ProductID) FROM deleted)>1)
-BEGIN
-	RETURN
-END
 ---------------------------------------------------------------------------------------------------------
 --ESTO ES PARA OBTENER LOS CAMPOS DE LOS CUALES SE REALIZO EL DELETE
 DECLARE @Columns_Updated NVARCHAR(MAX)
@@ -418,6 +530,9 @@ WHERE ProductID = 843
 
 
 SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('AdventureWorks2014.Production.Product') 
+
+
+
 
 
 

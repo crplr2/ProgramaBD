@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="mssql-jdbc-6.4.0.jre9">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../Drivers DB/Drivers Java/Microsoft JDBC Driver 6.4/enu/mssql-jdbc-6.4.0.jre9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../sql_server_java/mssql-jdbc-6.4.0.jre9.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
