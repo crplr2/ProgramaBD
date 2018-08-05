@@ -35,8 +35,13 @@ public class Controller {
     }
 
     @FXML
+<<<<<<< HEAD
     public void buttonAnalisis(ActionEvent event)throws IOException{
         Parent fxml = FXMLLoader.load(getClass().getResource("/ProgramBD/Miguel/UI.fxml"));
+=======
+    public void buttonListadoProductos(ActionEvent event)throws IOException{
+        Parent fxml = FXMLLoader.load(getClass().getResource("/ProgramBD/Hector/UI.fxml"));
+>>>>>>> b412e8b8389d79302b547eb64edf7fba9acecd40
         Scene scene = new Scene(fxml);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
