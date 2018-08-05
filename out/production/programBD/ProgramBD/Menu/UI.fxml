@@ -14,5 +14,6 @@
             <Font size="17.0" />
          </font>
       </Label>
+      <Button layoutX="108.0" layoutY="158.0" mnemonicParsing="false" onAction="#buttonAnalisis" prefHeight="41.0" prefWidth="322.0" text="Analisis Producto" />
    </children>
 </AnchorPane>
