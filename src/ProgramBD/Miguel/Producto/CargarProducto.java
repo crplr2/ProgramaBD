@@ -13,19 +13,13 @@ public class CargarProducto {
     private static PreparedStatement ps;
     private static ResultSet rs= null;
     private static Connection conn= DatabaseConnection.getInstance().getConnection();
-    static{
-        String sqlQuery = "SELECT * FROM Production.Product order by ProductID desc ";
-        Connection conn = DatabaseConnection.getInstance().getConnection();
-        try{
-            ps= conn.prepareStatement(sqlQuery);
-        }catch (SQLException e){
-            System.out.println("Error in prepared statement CargarProducto error"+e);
-        }
-    }
+
     public static List<Producto> todosProducto(){
+        String sqlQuery = "SELECT * FROM Production.Product order by ProductID desc ";
         ResultSet rs = null;
         List<Producto> productos = new ArrayList<>();
         try{
+            ps=conn.prepareStatement(sqlQuery);
             rs = ps.executeQuery();
             while (rs.next()){
                 Producto producto = new Producto();

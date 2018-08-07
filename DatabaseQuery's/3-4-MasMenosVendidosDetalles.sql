@@ -1,23 +1,18 @@
 
 
- --TOP 5 PRODUCTOS MAS VENDIDOS--
- select top(5) ProductID, SUM(OrderQty) as 'Cantidad' from Sales.SalesOrderDetail 
- group by ProductID 
- order by 'Cantidad' desc
+--FUNCION PARA MAS DETALLES--
 
- 
- --T0P 5 PRODUCTOS MENOS VENDIDOS--
-  select top(5) ProductID, SUM(OrderQty) as 'Cantidad' from Sales.SalesOrderDetail 
- group by ProductID 
- order by 'Cantidad' asc
-
- select sum(ss.OrderQty) as 'Cantidad' from Production.Product pp inner join Sales.SalesOrderDetail ss
- on pp.ProductID=ss.ProductID group by pp.ProductID order by pp.ProductID; 
- select * from Production.Product order by ProductID desc;
-
- --LLAMAR A LA FUNCION--
-select * from ProductoVendidoTabla(1)
-
+create function masDetalles(@id int)
+returns @tabla table(
+ProductID int,ProductName nvarchar(30),Color nvarchar(30),CantidadInventario int, Location nvarchar(30))
+as
+begin
+insert into @tabla (ProductID,ProductName,Color,CantidadInventario,Location)
+select pp.ProductID, pp.Name,pp.Color,ppi.Quantity,pl.Name from Production.Product pp inner join Production.ProductInventory ppi
+on pp.ProductID=ppi.ProductID inner join Production.Location pl on ppi.LocationID=pl.LocationID
+where pp.ProductID=@id
+return
+end
 
 ------------------------------------------------------------------------------------------------------
 --FUNCION PARA DAR EL PRODUCTO MAS VENDIDO Y EL MENOS VENDIDO--

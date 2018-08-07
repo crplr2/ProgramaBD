@@ -1,7 +1,7 @@
 package ProgramBD.Miguel;
 
-import ProgramBD.Miguel.Producto.CargarDetalles;
 import ProgramBD.Miguel.Producto.CargarProducto;
+import ProgramBD.Miguel.Producto.Detalles.DetallesController;
 import ProgramBD.Miguel.Producto.Producto;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -16,7 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import java.awt.event.ActionEvent;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -155,56 +155,21 @@ import java.util.ResourceBundle;
 
 
         @FXML
-        public void btnDetalles() {
-            Producto producto =getSelected();
-            if(producto.getProductSubcategoryID()!=null) {
-                String des = CargarDetalles.cargarDetalles(Integer.parseInt(producto.getProductSubcategoryID()));
-                alert(des);
-            }
-            else{
-                alert2();
-            }
-        }
-
-
-        private void alert(String des){
-            if(tag==1) {
-                Producto producto = getSelected();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Detalles del Producto");
-                alert.setHeaderText(null);
-                alert.setContentText("NOMBRE DEL PRODUCTO:\n" + producto.getName() + "\n CATEGORIA DEL PRODUCTO: \n" + des +
-                        "\n CANTIDAD VENDIDA: \n" + producto.getCantidad());
-                alert.showAndWait();
-            }
-            else{
-                Producto producto = getSelected();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Detalles del Producto");
-                alert.setHeaderText(null);
-                alert.setContentText("NOMBRE DEL PRODUCTO:\n" + producto.getName() + "\n CATEGORIA DEL PRODUCTO: \n" + des );
-                alert.showAndWait();
+        public void btnDetalles(javafx.event.ActionEvent e) {
+            Producto producto = getSelected();
+            if (producto != null) {
+                DetallesController.setID(Integer.parseInt(producto.getProductID()));
+                try {
+                    Parent fxml = FXMLLoader.load(getClass().getResource("/ProgramBD/Miguel/Producto/Detalles/DetallesUI.fxml"));
+                    Scene scene = new Scene(fxml);
+                    Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException w) {
+                    System.out.println("UI menu not found " + w);
+                }
             }
         }
 
-
-        private void alert2(){
-            if(tag==1) {
-                Producto producto = getSelected();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Detalles del Producto");
-                alert.setHeaderText(null);
-                alert.setContentText("NOMBRE DEL PRODUCTO:\n" + producto.getName() + "\n CATEGORIA DEL PRODUCTO: \n" + "No contiene categoria" +
-                        "\n CANTIDAD VENDIDA: \n" + producto.getCantidad());
-                alert.showAndWait();
-            }
-            else{
-                Producto producto = getSelected();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Detalles del Producto");
-                alert.setHeaderText(null);
-                alert.setContentText("NOMBRE DEL PRODUCTO:\n" + producto.getName() + "\n CATEGORIA DEL PRODUCTO: \n" + "No contiene categoria");
-            }
-        }
     }
 
